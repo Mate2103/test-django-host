@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'PROJEKT.wsgi.app'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django-web-test',
+        'NAME': 'rhkevpfw',
         'USER': 'rhkevpfw',
         'PASSWORD': 'hUHF8iA6rC3JVHZQv4Dq4v0x66d8REcS',
         'HOST': 'trumpet.db.elephantsql.com',
