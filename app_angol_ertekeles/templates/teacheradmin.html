@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/teacheradmin.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1>{{csoportedited}}'s dashboard</h1>
+
+    <div class="container">
+      <div>
+        <h2 class="diakok-title">Students</h2>
+        <div class="diakok-container">
+          {% for diak, atlag in diakok.items %}
+          <div class="diak-container">
+            <p style="margin-left: 1vw">{{diak}}</p>
+            <form
+              class="diak-inner-container"
+              method="POST"
+              action="/teacher/admin/{{selectedcsoport}}"
+            >
+              {% csrf_token %}
+              <p>Átlag: {{atlag}}%</p>
+              <input
+                type="checkbox"
+                name="toggleCheck"
+                class="togglecheck"
+                id="check-{{diak.user.id}}"
+                value="{{diak.user.id}}"
+              />
+              <script>
+                var input = document.querySelector("#check-{{diak.user.id}}");
+                input.checked = "{{diak.user.is_active}}" === "True";
+                input.addEventListener("click", () => {
+                  var csrftoken = "{{ csrf_token }}";
+                  var data = JSON.stringify({
+                    toggleCheck: "{{diak.user.id}}",
+                  });
+                  let response = fetch("/teacher/admin/{{selectedcsoport}}", {
+                    method: "POST",
+                    body: data,
+                    headers: {
+                      Accept: "application/json, text/plain, */*",
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": csrftoken,
+                    },
+                  });
+                });
+              </script>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <h2 class="diak-adder-title">Add student</h2>
+        <form method="POST" class="diak-adder">
+          {% csrf_token %}
+          <div class="fieldholder">
+            <label for="first_name" style="margin-top: 2rem">First name:</label>
+            <input name="first_name" type="text" required="required" />
+          </div>
+          <div style="width: 100%"></div>
+          <div class="fieldholder">
+            <label for="last_name">Last name:</label>
+            <input name="last_name" type="text" required="required" />
+          </div>
+          <div style="width: 100%"></div>
+          <div class="fieldholder">
+            <label for="last_name">Email:</label>
+            <input name="email" type="text" required="required" />
+          </div>
+          <button type="submit" class="diak-adder-button">Add</button>
+        </form>
+      </div>
+      <div>
+        <h2 class="value-setter-title">Value Setters:</h2>
+        <form method="POST" class="value-setter diak-adder">
+          {%csrf_token%}
+          <h3>Points to get a 0%% or 100% (max. 10):</h3>
+          <div class="black-red-points">
+            <label for="">Black points: </label>
+            <input
+              type="number"
+              id="blackpoints"
+              maxlength="2"
+              min="0"
+              max="10"
+              value="{{feketepontok}}"
+              name="setblack"
+            />
+          </div>
+          <div class="black-red-points">
+            <label for="">Red points: </label>
+            <input
+              type="number"
+              id="blackpoints"
+              maxlength="2"
+              min="0"
+              max="10"
+              value="{{pirospontok}}"
+              name="setred"
+            />
+          </div>
+          <button class="diak-adder-button">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="chart"></div>
+
+    <script>
+      document.querySelector("#blackpoints").onkeypress = keyp;
+      function keyp(e) {
+        if (!/[0-9]/.test(e.key)) {
+          e.preventDefault();
+        }
+      }
+    </script>
+  </body>
+</html>

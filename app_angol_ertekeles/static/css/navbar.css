@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.header {
+  display: flex;
+  position: sticky;
+  padding: 0.5rem;
+  background-color: #152238;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  z-index: 2;
+}
+.menulist {
+  display: inline-block;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.menuitem {
+  display: inline;
+  margin-left: 1rem;
+  align-items: center;
+}
+.menuitem > a {
+  text-decoration: none;
+}
+#logout {
+  margin-right: 1rem;
+}
+.menuoption {
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  color: white;
+  cursor: pointer;
+}
+.menuoption:hover {
+  color: rgba(255, 255, 255, 0.767);
+}
+.titleholder {
+  display: flex;
+  color: white;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.group-selector {
+}
+.group-button {
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  text-align: center;
+  width: 80px;
+  height: 3rem;
+  border-radius: 0.375rem;
+  border-width: 0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background: #1f5c9a;
+  color: white;
+}
+.group-button:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  background: #2f5c9a;
+}
+.group-selector {
+  position: relative;
+  display: inline-block;
+}
+.group-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.group-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.group-content a:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+.group-selector:hover .group-content {
+  display: block;
+}
+@media (min-width: 380px) {
+  .nav {
+    display: flex;
+    align-items: center;
+    width: auto;
+  }
+
+  .menuitem {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

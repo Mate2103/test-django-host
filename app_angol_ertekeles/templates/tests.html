@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/tests.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+    <h1 class="title">{{selectedcsoport}}'s tests</h1>
+    <div class="container">
+      {% for dolgozat in dolgozatok %}
+      <form class="dolgozat-container" method="POST">
+        {% csrf_token %}
+        <a href="/teacher/tests/{{selectedcsoport}}/{{dolgozat.id}}">
+          <p class="dolgozat-name">{{dolgozat}}</p>
+          <p class="dolgozat-done">Done: {{dolgozat.number_of_done}}</p>
+        </a>
+        <button class="dolgozat-delete" name="del-{{dolgozat.id}}">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="darkred"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+            />
+            <path
+              fillRule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+            />
+          </svg>
+        </button>
+      </form>
+      {% endfor %}
+    </div>
+  </body>
+</html>

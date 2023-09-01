@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/diakview.css' %}" />
+    <title>Grades</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <p class="title">Welcome {{userdata.user.last_name}}!</p>
+
+    <div class="grade-outer">
+      <div class="grade-info">
+        <div class="first-half">
+          <p>Grades:</p>
+          <div class="point-holder">
+            {% for i in maxpiros %}
+            <div class="point red-point unactive" id="red-{{i}}"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="second-half">
+          <div class="point-holder">
+            {% for i in maxfekete %}
+            <div class="point black-point unactive" id="black-{{i}}"></div>
+            {% endfor %}
+          </div>
+          <p>Avarage: {{atlag}}%</p>
+        </div>
+      </div>
+      {% for jegy in jegyek %}
+      <div class="grade-container">
+        <p class="grade-name">{{jegy.nev}}</p>
+        <div class="grade-value-container">
+          <p class="grade-value">Weight: {{jegy.suly}}%</p>
+          <p class="grade-value">Grade: {{jegy.ertek}}%</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+  <script type="text/javascript">
+    var pirosPontok = "{{userdata.pirosPontok}}";
+    var feketePontok = "{{userdata.feketePontok}}";
+    for (let i = 0; i < pirosPontok; i++) {
+      document.querySelector(`#red-${i}`).classList.remove("unactive");
+    }
+    for (let i = 0; i < feketePontok; i++) {
+      document.querySelector(`#black-${i}`).classList.remove("unactive");
+    }
+  </script>
+</html>

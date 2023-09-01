@@ -1,0 +1,64 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+<script defer>
+  {% comment %} function myFunction() {
+    document.getElementById("links").classList.toggle("show");
+  }
+
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function (event) {
+    if (!event.target.matches(".group-button")) {
+      var dropdowns = document.getElementsByClassName("group-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
+  }; {% endcomment %}
+</script>
+<header class="header" onloadstart="onLoad()">
+  <div class="titleholder">English Evaluation System</div>
+
+  <nav class="nav">
+    <ul class="menulist">
+      {% if tanar %}
+      <div class="group-selector">
+        <button class="group-button" onclick="myFunction()">
+          {{selectedcsoport}}
+        </button>
+        <div id="links" class="group-content">
+          {% for tanit in csoportok %}
+          <a href="{{url}}/{{tanit.csoport.name}}">{{tanit.csoport.name}}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <li class="menuitem">
+        <a href="/teacher/tests/{{selectedcsoport}}">
+          <span class="menuoption"> Tests </span>
+        </a>
+      </li>
+      <li class="menuitem">
+        <a href="/teacher/grade-assign/{{selectedcsoport}}">
+          <span class="menuoption"> Assign Grades </span>
+        </a>
+      </li>
+      <li class="menuitem">
+        <a href="/teacher/students/{{selectedcsoport}}" type="submit">
+          <span class="menuoption"> Students </span>
+        </a>
+      </li>
+      <li class="menuitem">
+        <a href="/teacher/admin/{{selectedcsoport}}" type="submit">
+          <span class="menuoption"> Admin </span>
+        </a>
+      </li>
+      {% endif %}
+      <li class="menuitem">
+        <a href="/accounts/logout" class="menuoption" id="logout"> Logout </a>
+      </li>
+    </ul>
+  </nav>
+</header>

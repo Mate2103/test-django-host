@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/testgrades.css' %}" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1 class="title">{{dolgozat}}</h1>
+    <p class="dolg-data">Weight: {{jegyek.first.suly}}%</p>
+    <p class="dolg-data">Avarage: {{dolgozat.get_avarage}}%</p>
+
+    {% comment %} Itt ilyen jegy hozzáadósdinak kell lennie {% endcomment %}
+    <div></div>
+
+    <div class="container">
+      <form class="assign-container" method="POST">
+        {% csrf_token %}
+        <select name="diak" id="diak-select">
+          {% for diak in diakok %}
+          <option value="{{diak.user.username}}">{{diak}}</option>
+          {% endfor %}
+        </select>
+        <label for="suly">Grade: </label>
+        <input
+          class="input"
+          type="text"
+          name="ertek"
+          id="ertek"
+          maxlength="3"
+          required="required"
+        />%
+
+        <button type="submit" class="add">Add</button>
+      </form>
+
+      {% for jegy in jegyek %}
+      <form class="dolgozat-container" method="POST">
+        {% csrf_token %}
+        <div>
+          <p class="dolgozat-name">
+            {{jegy.tanulo.first_name}} {{jegy.tanulo.last_name}}
+          </p>
+          <p class="dolgozat-suly">Weight: {{jegy.suly}}%</p>
+          <p class="dolgozat-ertek">Grade: {{jegy.ertek}}%</p>
+        </div>
+        <button class="dolgozat-delete" name="del-{{jegy.id}}">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="darkred"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+            />
+            <path
+              fillRule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+            />
+          </svg>
+        </button>
+      </form>
+      {% endfor %} {% if messages %} {% for message in messages %}
+      <script>
+        alert("{{message}}");
+      </script>
+      {% endfor %} {% endif %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/assign-grades.css' %}" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <h1 class="title">Assign Grades to {{selectedcsoport}}</h1>
+    <form class="container" method="POST">
+      {% csrf_token %}
+      <div class="assign-container">
+        <input
+          class="input"
+          type="text"
+          name="nev"
+          id="description"
+          placeholder="Description"
+          required="required"
+        />
+        <label for="dolgozate">Is Test: </label>
+        <input class="input" type="checkbox" name="dolgozate" id="dolgozate" />
+        <label for="suly">Weight: </label>
+        <input
+          class="input"
+          type="text"
+          name="suly"
+          id="suly"
+          maxlength="3"
+          required="required"
+        />%
+        <input type="date" id="date" name="datum" />
+
+        <button type="submit" class="add">Add</button>
+      </div>
+      {%for diak in diakok%}
+      <div class="diak-container">
+        <p class="diak-name">{{diak}}</p>
+        <div class="diak-grade">
+          <label for="ertek">Grade: </label>
+          <input
+            class="input ertek"
+            type="text"
+            id="ertek"
+            name="{{diak.user.id}}"
+            maxlength="3"
+          />%
+        </div>
+      </div>
+      {%endfor%}
+    </form>
+  </body>
+  <script>
+    document.querySelector("#date").valueAsDate = new Date();
+    function keyp(e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    }
+    document.querySelector("#suly").onkeypress = keyp;
+    var ertekek = document.getElementsByClassName("ertek");
+    for (i = 0; i < ertekek.length; i++) {
+      ertekek[i].onkeypress = keyp;
+    }
+  </script>
+</html>

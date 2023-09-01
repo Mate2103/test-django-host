@@ -1,0 +1,63 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/diakok.css' %}" />
+    <title>Page</title>
+  </head>
+  <body>
+    {% include 'navbar.html'%}
+    <div class="container">
+      {% for diak in diakok %}
+      <a href="{{selectedcsoport}}/{{diak.user}}" class="diak-link">
+        <img
+          src="{% static 'images/placeholder.jpg' %}"
+          alt="profilepic"
+          class="profilepic"
+        />
+        <div class="information-holder">
+          <p class="diak-name">
+            {{diak.user.first_name}} {{diak.user.last_name}}
+          </p>
+          <p class="diak-avarage">Avarage: {{diak.get_atlag}}%</p>
+          <div class="point-holder">
+            {% for i in maxpiros %}
+            <div
+              class="point red-point unactive"
+              id="{{diak.user.username}}-red-{{i}}"
+            ></div>
+            {% endfor %}
+          </div>
+          <div class="point-holder">
+            {% for i in maxfekete %}
+            <div
+              class="point black-point unactive"
+              id="{{diak.user.username}}-black-{{i}}"
+            ></div>
+            {% endfor %}
+          </div>
+        </div>
+      </a>
+      <script>
+        var pirosPontok = "{{diak.pirosPontok}}";
+        var feketePontok = "{{diak.feketePontok}}";
+        for (let i = 0; i < pirosPontok; i++) {
+          document
+            .querySelector(`#{{diak.user.username}}-red-${i}`)
+            .classList.remove("unactive");
+        }
+        for (let i = 0; i < feketePontok; i++) {
+          document
+            .querySelector(`#{{diak.user.username}}-black-${i}`)
+            .classList.remove("unactive");
+        }
+        console.log(pirosPontok, feketePontok);
+        console.log("{{diak}}");
+      </script>
+      {% endfor %}
+    </div>
+  </body>
+</html>
