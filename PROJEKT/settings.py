@@ -91,14 +91,31 @@ WSGI_APPLICATION = 'PROJEKT.wsgi.app'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 # }
+
+
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'rhkevpfw',
+#        'USER': 'rhkevpfw',
+#        'PASSWORD': 'hUHF8iA6rC3JVHZQv4Dq4v0x66d8REcS',
+#        'HOST': 'trumpet.db.elephantsql.com',
+#        'PORT': '5432',
+#    }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rhkevpfw',
-        'USER': 'rhkevpfw',
-        'PASSWORD': 'hUHF8iA6rC3JVHZQv4Dq4v0x66d8REcS',
-        'HOST': 'trumpet.db.elephantsql.com',
-        'PORT': '5432',
+        'ENGINE': 'djongo',
+        'ENFORCE_SCHEMA': 'True',
+        'NAME': 'django-angol-db',
+        'CLIENT': {
+            'name': 'django-angol-db',
+            'host': 'mongodb+srv://Mate2103:05076872@django-angol-db.hdtzjyx.mongodb.net/?retryWrites=true&w=majority',
+            'username': 'Mate2103',
+            'password': '05076872',
+            'authMechanism': 'SCRAM-SHA-1',
+        },
     }
 }
 
